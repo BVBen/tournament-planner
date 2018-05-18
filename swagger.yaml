@@ -1,0 +1,362 @@
+swagger: "2.0"
+info:
+  description: "This is a documentation for the wm-tippers backend service, where you can get all data for the wm 2018 in russia. Also you can save tipps for the games"
+  version: "1.0.0"
+  title: "WM-Tippers"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "benny-bloemer@t-online.de"
+basePath: "/v2"
+tags:
+- name: "user"
+  description: "Operations about user"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+
+- name: "tournament"
+  description: "Operations about tournament"
+
+- name: "teams"
+  description: "Operations about teams"
+schemes:
+- "http"
+paths:
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+          
+    get:
+      tags:
+      - "user"
+      summary: "Get all user"
+      description: ""
+      operationId: "getUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: array
+            items: 
+              $ref: "#/definitions/User"
+        404:
+          description: "User not found"
+          
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+
+    put:
+      tags:
+      - "user"
+      summary: "Updated user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "name that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        400:
+          description: "Invalid user supplied"
+        404:
+          description: "User not found"
+    delete:
+      tags:
+      - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+
+  /api/tournament:
+    post:
+      tags:
+      - "tournament"
+      summary: "Create tournament"
+      description: "This can only be done by the logged in user."
+      operationId: "createTournament"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created tournament object"
+        required: true
+        schema:
+          $ref: "#/definitions/Tournament"
+      responses:
+        default:
+          description: "successful operation"
+
+  /api/tournament/{tournamentId}:
+    get:
+      tags:
+      - "tournament"
+      summary: "Get tournament by tournament id"
+      description: ""
+      operationId: "getTournamentById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Tournament"
+        400:
+          description: "Invalid tournament supplied"
+        404:
+          description: "Tournament not found" 
+
+  /api/tournament/{tournamentId}/teams:
+    get:
+      tags:
+      - "teams"
+      summary: "Get teams by tournament id"
+      description: ""
+      operationId: "getTeamsByTournamentId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/Team"
+        400:
+          description: "Invalid team supplied"
+        404:
+          description: "Tournament not found"  
+          
+    post:
+      tags:
+      - "teams"
+      summary: "Create team"
+      description: "This can only be done by the logged in user."
+      operationId: "createTeamForTournament"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Created team object"
+        required: true
+        schema:
+          $ref: "#/definitions/Team"
+      responses:
+        default:
+          description: "successful operation"
+          
+  /api/tournament/{tournamentId}/teams/{teamId}:
+    get:
+      tags:
+      - "teams"
+      summary: "Get team by tournament id and teamId"
+      description: ""
+      operationId: "getTeamsByTournamentIdAndTeamId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "teamId"
+        in: "path"
+        description: "The teamId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Team"
+        400:
+          description: "Invalid team supplied"
+        404:
+          description: "Tournament not found"  
+
+definitions:
+  User:
+    type: "object"
+    required: 
+      - id
+      - username
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstname:
+        type: "string"
+      lastname:
+        type: "string"
+      image:
+        type: "string"
+    xml:
+      name: "User"
+  Team:
+    type: "object"
+    required: 
+    - id
+    properties:
+      name:
+        type: "string"
+      logo:
+        type: "string"
+  Tournament:
+    title: "Tournament"
+    description: "The Tournament can be a league like Bundesliga or a tournament like WM"
+    type: "object"
+    required: 
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      title:
+        type: "string"
+      groupCount: 
+        type: number
+      teams:
+        type: array
+        items:
+          $ref: "#/definitions/Team"
+  Match:
+    title: "Match"
+    description: "a match is a object for a soccer game with the results of a game between two teams"
+    type: "object"
+    required: 
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      homeTeam:
+        type: "object"
+        $ref: "#/definitions/Team"
+      awayTeam:
+        type: "object"
+        $ref: "#/definitions/Team"
+      result:
+        type: "object"
+        $ref: "#/definitions/Result"
+      dateTime:
+        type: "string"
+        format: "date-time"
+
+  Result:
+    title: "Result"
+    description: "A Result Object contains the result of a match"
+    type: "object"
+    required: 
+      - id
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      homeGoals:
+        type: "integer"
+        format: "int32"
+      awayGoals:
+        type: "integer"
+        format: "int32"
+  ApiResponse:
+    type: "object"
+    properties:
+      statusCode:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "GitHub"
+  url: "https://github.com/BVBen/wm-tippers-backend"
