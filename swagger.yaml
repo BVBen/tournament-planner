@@ -6,7 +6,7 @@ info:
   termsOfService: "http://swagger.io/terms/"
   contact:
     email: "benny-bloemer@t-online.de"
-basePath: "/v2"
+basePath: "/api/v1"
 tags:
 - name: "user"
   description: "Operations about user"
@@ -135,7 +135,7 @@ paths:
         404:
           description: "User not found"
 
-  /api/tournament:
+  /tournament:
     post:
       tags:
       - "tournament"
@@ -156,7 +156,7 @@ paths:
         default:
           description: "successful operation"
 
-  /api/tournament/{tournamentId}:
+  /tournament/{tournamentId}:
     get:
       tags:
       - "tournament"
@@ -182,7 +182,7 @@ paths:
         404:
           description: "Tournament not found" 
 
-  /api/tournament/{tournamentId}/teams:
+  /tournament/{tournamentId}/teams:
     get:
       tags:
       - "teams"
@@ -231,7 +231,7 @@ paths:
         default:
           description: "successful operation"
           
-  /api/tournament/{tournamentId}/teams/{teamId}:
+  /tournament/{tournamentId}/teams/{teamId}:
     get:
       tags:
       - "teams"
