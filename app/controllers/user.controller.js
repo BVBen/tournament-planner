@@ -1,4 +1,8 @@
 const User = require('../models/user.model.js');
+const Tournament = require('../models/tournament.model.js');
+const Match = require('../models/match.model.js');
+const result = require('../models/result.model.js');
+const team = require('../models/team.model.js');
 
 // Create and Save a new User
 exports.create = (req, res) => {

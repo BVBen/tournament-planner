@@ -38,6 +38,9 @@ router.get('/', function (req, res) {
 app.use('/api', router);
 
 require('./app/routes/user.routes.js')(app);
+require('./app/routes/tournament.routes.js')(app);
+require('./app/routes/team.routes.js')(app);
+require('./app/routes/match.routes.js')(app);
 
 // START THE SERVER
 // =============================================================================

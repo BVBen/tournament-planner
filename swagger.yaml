@@ -19,6 +19,8 @@ tags:
 
 - name: "teams"
   description: "Operations about teams"
+- name: "matches"
+  description: "Operations about matches"
 schemes:
 - "http"
 paths:
@@ -260,6 +262,241 @@ paths:
           description: "Invalid team supplied"
         404:
           description: "Tournament not found"  
+    put:
+      tags:
+      - "teams"
+      summary: "updates team by tournamentId and teamId"
+      description: ""
+      operationId: "putTeamsByTournamentIdAndTeamId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "teamId"
+        in: "path"
+        description: "The teamId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Updated team object"
+        required: true
+        schema:
+          $ref: "#/definitions/Team"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Team"
+        400:
+          description: "Invalid team supplied"
+        404:
+          description: "Tournament not found"  
+    delete:
+      tags:
+      - "teams"
+      summary: "Delete team"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteTeam"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "teamId"
+        in: "path"
+        description: "The teamId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        201:
+          description: "successfully deleted"
+        400:
+          description: "Invalid tournamentId supplied"
+        404:
+          description: "Tournament not found"
+          
+  /tournament/{tournamentId}/matches:
+    get:
+      tags:
+      - "matches"
+      summary: "Get matches by tournament id"
+      description: ""
+      operationId: "getMatchesByTournamentId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/Match"
+        400:
+          description: "Invalid match supplied"
+        404:
+          description: "Tournament not found"  
+          
+    post:
+      tags:
+      - "matches"
+      summary: "Create match"
+      description: "This can only be done by the logged in user."
+      operationId: "createMatchForTournament"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Created match object"
+        required: true
+        schema:
+          $ref: "#/definitions/Match"
+      responses:
+        default:
+          description: "successful operation"
+          
+  /tournament/{tournamentId}/matches/{matchId}:
+    get:
+      tags:
+      - "matches"
+      summary: "Get Match by tournamentId and matchId"
+      description: ""
+      operationId: "getMatchByTournamentIdAndMatchId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "matchId"
+        in: "path"
+        description: "The matchId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Match"
+        400:
+          description: "Invalid match supplied"
+        404:
+          description: "Tournament not found"  
+    put:
+      tags:
+      - "matches"
+      summary: "updates match by tournamentId and matchId"
+      description: ""
+      operationId: "putMatchByTournamentIdAndMatchId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "matchId"
+        in: "path"
+        description: "The matchId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Updated match object"
+        required: true
+        schema:
+          $ref: "#/definitions/Match"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Match"
+        400:
+          description: "Invalid Match supplied"
+        404:
+          description: "Tournament not found"  
+    delete:
+      tags:
+      - "matches"
+      summary: "Delete Match"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteMatch"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "matchId"
+        in: "path"
+        description: "The teamId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        201:
+          description: "successfully deleted"
+        400:
+          description: "Invalid matchId supplied"
+        404:
+          description: "Tournament not found"
+          
+  /tournament/{tournamentId}/matches/{matchId}/result:
+    put:
+      tags:
+      - "matches"
+      summary: "updates match result by tournamentId and matchId"
+      description: ""
+      operationId: "putMatchResultByTournamentIdAndMatchId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tournamentId"
+        in: "path"
+        description: "The tournamentId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - name: "matchId"
+        in: "path"
+        description: "The matchId that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Updated match result object"
+        required: true
+        schema:
+          $ref: "#/definitions/Result"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Match"
+        400:
+          description: "Invalid result supplied"
+        404:
+          description: "Tournament not found"  
 
 definitions:
   User:
@@ -330,6 +567,11 @@ definitions:
       dateTime:
         type: "string"
         format: "date-time"
+      group:
+        type: "string"
+      matchDay:
+        type: integer
+        format: "int64"
 
   Result:
     title: "Result"
