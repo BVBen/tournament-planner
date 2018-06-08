@@ -1,5 +1,5 @@
-# wm-tippers-backend
-Server Backend für Tippspiel zur WM 2018
+# tournament-planner
+Server Backend für ein Turnier Planer für Fußballturniere
 
 ## Technologien
 * Node.js
